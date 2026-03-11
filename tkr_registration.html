@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TKR Tech Fest 241 – Registration</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --gold: #f5c518;
+    --gold2: #ffaa00;
+    --bg: #07080f;
+    --card: #0e1120;
+    --border: #1e2340;
+    --accent: #4f8ef7;
+    --accent2: #7c3aed;
+    --green: #22c55e;
+    --red: #ef4444;
+    --text: #e8eaf6;
+    --muted: #6b7280;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 10% 0%, rgba(79,142,247,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 100%, rgba(124,58,237,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 50% 50%, rgba(245,197,24,0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px 16px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 36px 0 28px;
+    position: relative;
+  }
+  .header-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #f5c518, #ffaa00);
+    color: #07080f;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(20px, 5vw, 30px);
+    font-weight: 900;
+    background: linear-gradient(135deg, #f5c518 0%, #ffaa00 50%, #fff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .header p {
+    color: var(--muted);
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .header-line {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 18px auto 0;
+  }
+
+  /* STEPS */
+  .steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 0 0 32px;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .step-circle {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    background: var(--card);
+    transition: all 0.3s;
+  }
+  .step.active .step-circle {
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: 0 0 14px rgba(245,197,24,0.4);
+    background: rgba(245,197,24,0.1);
+  }
+  .step.done .step-circle {
+    border-color: var(--green);
+    color: var(--green);
+    background: rgba(34,197,94,0.1);
+  }
+  .step-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .step.active .step-label { color: var(--gold); }
+  .step.done .step-label { color: var(--green); }
+  .step-connector {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    margin: 0 8px;
+    margin-bottom: 22px;
+    max-width: 60px;
+    transition: background 0.3s;
+  }
+  .step-connector.done { background: var(--green); }
+
+  /* CARD */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 28px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.6;
+  }
+  .card-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-title span { font-size: 18px; }
+
+  /* FORM FIELDS */
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 7px;
+  }
+  .field input, .field select {
+    width: 100%;
+    background: #111525;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field input:focus, .field select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(245,197,24,0.10);
+  }
+  .field select option { background: #0e1120; }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* MODE TOGGLE */
+  .mode-toggle { display: flex; gap: 12px; margin-bottom: 4px; }
+  .mode-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: #111525;
+    color: var(--muted);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+  }
+  .mode-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(79,142,247,0.10);
+    box-shadow: 0 0 14px rgba(79,142,247,0.2);
+  }
+
+  /* EVENT CATEGORY */
+  .cat-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+  .cat-btn {
+    padding: 18px 12px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: #111525;
+    color: var(--muted);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.25s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .cat-btn .cat-icon { font-size: 28px; }
+  .cat-btn.active-tech {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(79,142,247,0.10);
+    box-shadow: 0 0 20px rgba(79,142,247,0.2);
+  }
+  .cat-btn.active-nontech {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(245,197,24,0.08);
+    box-shadow: 0 0 20px rgba(245,197,24,0.18);
+  }
+
+  /* EVENT CARDS */
+  .events-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .event-card {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 14px;
+    background: #111525;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .event-card:hover { border-color: #2e3560; }
+  .event-card.selected-tech {
+    border-color: var(--accent);
+    background: rgba(79,142,247,0.10);
+    box-shadow: 0 0 14px rgba(79,142,247,0.18);
+  }
+  .event-card.selected-nontech {
+    border-color: var(--gold);
+    background: rgba(245,197,24,0.08);
+    box-shadow: 0 0 14px rgba(245,197,24,0.15);
+  }
+  .event-name {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text);
+  }
+  .event-fee {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .event-note {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* MEMBERS INPUT */
+  .members-section {
+    margin-top: 20px;
+    display: none;
+  }
+  .members-section.show { display: block; }
+  .member-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .member-label {
+    grid-column: 1/-1;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  /* PAYMENT SECTION */
+  .payment-section {
+    display: none;
+  }
+  .payment-section.show { display: block; }
+  .payment-amount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(34,197,94,0.08);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+  }
+  .payment-amount .label { font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: 1px; }
+  .payment-amount .amount {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--green);
+  }
+  .qr-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 24px;
+    background: #fff;
+    border-radius: 14px;
+    margin-bottom: 20px;
+  }
+  #qrcode canvas, #qrcode img { border-radius: 6px; }
+  .qr-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: #07080f;
+    letter-spacing: 1px;
+    text-align: center;
+  }
+  .qr-upi {
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+  }
+  .pay-instruction {
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .pay-instruction strong { color: var(--gold); }
+
+  /* BUTTONS */
+  .btn {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 8px;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #f5c518, #ffaa00);
+    color: #07080f;
+    box-shadow: 0 4px 20px rgba(245,197,24,0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(245,197,24,0.5);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    border: 1.5px solid var(--border);
+    margin-top: 10px;
+  }
+  .btn-secondary:hover { border-color: var(--muted); color: var(--text); }
+  .btn-submit {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(34,197,94,0.3);
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(34,197,94,0.5);
+  }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 50px 20px;
+  }
+  .success-screen.show { display: block; }
+  .success-icon {
+    font-size: 70px;
+    margin-bottom: 20px;
+    animation: pop 0.5s ease;
+  }
+  @keyframes pop {
+    0% { transform: scale(0); }
+    70% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+  .success-screen h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 26px;
+    color: var(--green);
+    margin-bottom: 12px;
+  }
+  .success-screen p { color: var(--muted); font-size: 16px; line-height: 1.7; }
+  .success-detail {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 24px 0;
+    text-align: left;
+  }
+  .success-detail .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .success-detail .row:last-child { border-bottom: none; }
+  .success-detail .row span:first-child { color: var(--muted); }
+  .success-detail .row span:last-child { font-weight: 700; color: var(--text); }
+
+  /* SECTION HIDDEN */
+  .section { display: none; }
+  .section.show { display: block; }
+
+  /* Error */
+  .error-msg {
+    color: var(--red);
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+  }
+  .error-msg.show { display: block; }
+
+  @media (max-width: 500px) {
+    .row-2 { grid-template-columns: 1fr; }
+    .events-grid { grid-template-columns: 1fr; }
+    .cat-toggle { grid-template-columns: 1fr 1fr; }
+    .card { padding: 20px 16px; }
+    .member-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-badge">TKR College of Engineering & Technology</div>
+    <h1>TECH FEST 241</h1>
+    <p>Event Registration Portal</p>
+    <div class="header-line"></div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step active" id="step1-indicator">
+      <div class="step-circle">1</div>
+      <div class="step-label">Details</div>
+    </div>
+    <div class="step-connector" id="conn1"></div>
+    <div class="step active" id="step2-indicator">
+      <div class="step-circle">2</div>
+      <div class="step-label">Event</div>
+    </div>
+    <div class="step-connector" id="conn2"></div>
+    <div class="step" id="step3-indicator">
+      <div class="step-circle">3</div>
+      <div class="step-label">Payment</div>
+    </div>
+  </div>
+
+  <!-- SECTION 1: PERSONAL DETAILS -->
+  <div class="section show" id="sec1">
+    <div class="card">
+      <div class="card-title"><span>👤</span> Personal Details</div>
+      <div class="field">
+        <label>Full Name *</label>
+        <input type="text" id="name" placeholder="Enter your full name">
+        <div class="error-msg" id="err-name">Please enter your name</div>
+      </div>
+      <div class="field">
+        <label>Phone Number *</label>
+        <input type="tel" id="phone" placeholder="10-digit mobile number" maxlength="10">
+        <div class="error-msg" id="err-phone">Enter a valid 10-digit number</div>
+      </div>
+      <div class="field">
+        <label>Email Address *</label>
+        <input type="email" id="email" placeholder="you@email.com">
+        <div class="error-msg" id="err-email">Enter a valid email address</div>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label>Year of Study *</label>
+          <select id="year">
+            <option value="">Select Year</option>
+            <option>1st Year</option>
+            <option>2nd Year</option>
+            <option>3rd Year</option>
+            <option>4th Year</option>
+          </select>
+          <div class="error-msg" id="err-year">Please select year</div>
+        </div>
+        <div class="field">
+          <label>Branch *</label>
+          <select id="branch">
+            <option value="">Select Branch</option>
+            <option>CSE</option>
+            <option>IT</option>
+            <option>ECE</option>
+            <option>EEE</option>
+            <option>MECH</option>
+            <option>CIVIL</option>
+            <option>MBA</option>
+            <option>MCA</option>
+          </select>
+          <div class="error-msg" id="err-branch">Please select branch</div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Mode of Participation *</label>
+        <div class="mode-toggle">
+          <div class="mode-btn active" id="mode-offline" onclick="setMode('Offline')">🏫 Offline</div>
+          <div class="mode-btn" id="mode-online" onclick="setMode('Online')">💻 Online</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="goToStep2()">NEXT: SELECT EVENT →</button>
+    </div>
+  </div>
+
+  <!-- SECTION 2: EVENT SELECTION -->
+  <div class="section" id="sec2">
+    <div class="card">
+      <div class="card-title"><span>🎯</span> Choose Event Category</div>
+      <div class="cat-toggle">
+        <div class="cat-btn" id="cat-tech" onclick="selectCategory('technical')">
+          <span class="cat-icon">💻</span>
+          TECHNICAL
+        </div>
+        <div class="cat-btn" id="cat-non" onclick="selectCategory('nontechnical')">
+          <span class="cat-icon">🎭</span>
+          NON-TECHNICAL
+        </div>
+      </div>
+
+      <!-- Technical Events -->
+      <div id="tech-events" style="display:none;">
+        <div class="card-title" style="margin-bottom:14px;font-size:12px;"><span>⚡</span> Select Technical Event</div>
+        <div class="events-grid" id="tech-grid"></div>
+        <div class="members-section" id="tech-members"></div>
+      </div>
+
+      <!-- Non-Technical Events -->
+      <div id="nontech-events" style="display:none;">
+        <div class="card-title" style="margin-bottom:14px;font-size:12px;"><span>🌟</span> Select Non-Technical Event</div>
+        <div class="events-grid" id="nontech-grid"></div>
+        <div class="members-section" id="nontech-members"></div>
+      </div>
+
+      <div id="event-error" class="error-msg" style="margin-top:10px;">Please select an event</div>
+
+      <button class="btn btn-primary" style="margin-top:20px;" onclick="goToPayment()">PROCEED TO PAYMENT →</button>
+      <button class="btn btn-secondary" onclick="goBack(1)">← BACK</button>
+    </div>
+  </div>
+
+  <!-- SECTION 3: PAYMENT -->
+  <div class="section" id="sec3">
+    <div class="card">
+      <div class="card-title"><span>💳</span> Payment</div>
+
+      <div class="payment-amount">
+        <div>
+          <div class="label">REGISTRATION FEE</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;" id="pay-event-name">—</div>
+        </div>
+        <div class="amount" id="pay-amount">₹0</div>
+      </div>
+
+      <div class="qr-wrap">
+        <div class="qr-label">📱 SCAN & PAY via PhonePe / UPI</div>
+        <div id="qrcode"></div>
+        <div class="qr-upi" id="qr-upi-text">UPI ID: your_upi@ybl</div>
+        <div class="qr-label" id="qr-amount-label" style="color:#22c55e;font-size:15px;">₹0</div>
+      </div>
+
+      <div class="pay-instruction">
+        Scan the QR code using <strong>PhonePe, GPay, Paytm</strong> or any UPI app.<br>
+        After payment, enter the <strong>Transaction ID</strong> below.
+      </div>
+
+      <div class="field">
+        <label>UTR / Transaction ID *</label>
+        <input type="text" id="txn" placeholder="Enter 12-digit UTR number">
+        <div class="error-msg" id="err-txn">Please enter the transaction ID</div>
+      </div>
+
+      <button class="btn btn-submit" onclick="submitForm()">✅ COMPLETE REGISTRATION</button>
+      <button class="btn btn-secondary" onclick="goBack(2)">← BACK</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="success">
+    <div class="success-icon">🎉</div>
+    <h2>Registration Successful!</h2>
+    <p>You're all set for <strong>TKR Tech Fest 241</strong>.<br>Check your email for confirmation details.</p>
+    <div class="success-detail" id="success-summary"></div>
+    <button class="btn btn-primary" onclick="resetForm()">REGISTER ANOTHER</button>
+  </div>
+
+</div>
+
+<script>
+  // ===== CONFIG =====
+  const UPI_ID = "9999999999@ybl"; // 🔁 Replace with your actual UPI ID
+  const PAYEE_NAME = "TKR Tech Fest";
+
+  // ===== DATA =====
+  const techEvents = [
+    { name: "Technical Quiz", fee: 50, note: "Max 2 members", maxMembers: 2 },
+    { name: "Hackathon", fee: 250, note: "Max 4 members", maxMembers: 4, feeNote: "Max 4 mem" },
+    { name: "PPT Presentation", fee: 50, note: "Individual", maxMembers: 1 },
+    { name: "Essay Writing", fee: 50, note: "Individual", maxMembers: 1 },
+    { name: "Poster Presentation", fee: 50, note: "Max 2 members", maxMembers: 2 },
+    { name: "Debugging", fee: 50, note: "Individual", maxMembers: 1 },
+    { name: "None of the Above", fee: 0, note: "", maxMembers: 0 },
+  ];
+  const nonTechEvents = [
+    { name: "Chess", fee: 50, note: "Individual", maxMembers: 1 },
+    { name: "Carrom", fee: 50, note: "Individual", maxMembers: 1 },
+    { name: "Badminton (Single)", fee: 50, note: "Individual", maxMembers: 1 },
+    { name: "Singing", fee: 50, note: "Individual", maxMembers: 1 },
+    { name: "Art Gallery", fee: 50, note: "Individual", maxMembers: 1 },
+    { name: "Reels", fee: 50, note: "Individual", maxMembers: 1 },
+    { name: "Guess The Movie", fee: 50, note: "Max 2 members", maxMembers: 2 },
+    { name: "Click Mania", fee: 50, note: "Max 2 members", maxMembers: 2 },
+  ];
+
+  // ===== STATE =====
+  let mode = "Offline";
+  let category = "";
+  let selectedEvent = null;
+  let memberCount = 1;
+  let qrInstance = null;
+
+  // ===== RENDER EVENTS =====
+  function renderEvents(events, gridId, type) {
+    const grid = document.getElementById(gridId);
+    grid.innerHTML = "";
+    events.forEach((ev, i) => {
+      const div = document.createElement("div");
+      div.className = "event-card";
+      div.id = `ev-${type}-${i}`;
+      div.innerHTML = `
+        <div class="event-name">${ev.name}</div>
+        ${ev.fee > 0 ? `<div class="event-fee">₹${ev.fee}/each</div>` : `<div class="event-fee" style="color:var(--muted)">—</div>`}
+        ${ev.note ? `<div class="event-note">${ev.note}</div>` : ""}
+      `;
+      div.onclick = () => selectEvent(ev, i, type);
+      grid.appendChild(div);
+    });
+  }
+
+  renderEvents(techEvents, "tech-grid", "tech");
+  renderEvents(nonTechEvents, "nontech-grid", "nontech");
+
+  // ===== MODE =====
+  function setMode(m) {
+    mode = m;
+    document.getElementById("mode-offline").className = "mode-btn" + (m === "Offline" ? " active" : "");
+    document.getElementById("mode-online").className = "mode-btn" + (m === "Online" ? " active" : "");
+  }
+
+  // ===== CATEGORY =====
+  function selectCategory(cat) {
+    category = cat;
+    selectedEvent = null;
+    document.getElementById("cat-tech").className = "cat-btn" + (cat === "technical" ? " active-tech" : "");
+    document.getElementById("cat-non").className = "cat-btn" + (cat === "nontechnical" ? " active-nontech" : "");
+    document.getElementById("tech-events").style.display = cat === "technical" ? "block" : "none";
+    document.getElementById("nontech-events").style.display = cat === "nontechnical" ? "block" : "none";
+    // Clear previous selection
+    document.querySelectorAll(".event-card").forEach(c => c.className = "event-card");
+    document.getElementById("tech-members").innerHTML = "";
+    document.getElementById("tech-members").className = "members-section";
+    document.getElementById("nontech-members").innerHTML = "";
+    document.getElementById("nontech-members").className = "members-section";
+  }
+
+  // ===== SELECT EVENT =====
+  function selectEvent(ev, idx, type) {
+    selectedEvent = ev;
+    // Highlight
+    const allCards = document.querySelectorAll(`.event-card`);
+    allCards.forEach(c => {
+      c.classList.remove("selected-tech", "selected-nontech");
+    });
+    const card = document.getElementById(`ev-${type}-${idx}`);
+    card.classList.add(type === "tech" ? "selected-tech" : "selected-nontech");
+
+    // Show member fields if needed
+    const membersDiv = document.getElementById(type === "tech" ? "tech-members" : "nontech-members");
+    membersDiv.innerHTML = "";
+    if (ev.maxMembers > 1) {
+      membersDiv.className = "members-section show";
+      let html = `<div class="member-label">👥 Team Member Names</div>`;
+      for (let i = 2; i <= ev.maxMembers; i++) {
+        html += `<div class="member-row"><input class="field input" style="width:100%;background:#111525;border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-family:Rajdhani,sans-serif;font-size:15px;font-weight:600;padding:10px 13px;outline:none;" id="member${i}" placeholder="Member ${i} Name (optional)"></div>`;
+      }
+      membersDiv.innerHTML = html;
+    } else {
+      membersDiv.className = "members-section";
+    }
+
+    document.getElementById("event-error").className = "error-msg";
+  }
+
+  // ===== VALIDATION =====
+  function showErr(id, show) {
+    document.getElementById(id).className = "error-msg" + (show ? " show" : "");
+  }
+
+  function goToStep2() {
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const year = document.getElementById("year").value;
+    const branch = document.getElementById("branch").value;
+    let ok = true;
+    showErr("err-name", !name); if (!name) ok = false;
+    showErr("err-phone", !/^\d{10}$/.test(phone)); if (!/^\d{10}$/.test(phone)) ok = false;
+    showErr("err-email", !/\S+@\S+\.\S+/.test(email)); if (!/\S+@\S+\.\S+/.test(email)) ok = false;
+    showErr("err-year", !year); if (!year) ok = false;
+    showErr("err-branch", !branch); if (!branch) ok = false;
+    if (!ok) return;
+    document.getElementById("sec1").className = "section";
+    document.getElementById("sec2").className = "section show";
+    document.getElementById("step1-indicator").className = "step done";
+    document.getElementById("conn1").className = "step-connector done";
+    document.getElementById("step2-indicator").className = "step active";
+    window.scrollTo(0, 0);
+  }
+
+  function goToPayment() {
+    if (!category) { document.getElementById("event-error").className = "error-msg show"; document.getElementById("event-error").textContent = "Please select a category"; return; }
+    if (!selectedEvent) { document.getElementById("event-error").className = "error-msg show"; document.getElementById("event-error").textContent = "Please select an event"; return; }
+    if (selectedEvent.name === "None of the Above") {
+      alert("No event selected. Please select an event to register.");
+      return;
+    }
+    generatePayment();
+    document.getElementById("sec2").className = "section";
+    document.getElementById("sec3").className = "section show";
+    document.getElementById("step2-indicator").className = "step done";
+    document.getElementById("conn2").className = "step-connector done";
+    document.getElementById("step3-indicator").className = "step active";
+    window.scrollTo(0, 0);
+  }
+
+  function generatePayment() {
+    const ev = selectedEvent;
+    document.getElementById("pay-event-name").textContent = `${ev.name} — ${category === "technical" ? "Technical" : "Non-Technical"}`;
+    document.getElementById("pay-amount").textContent = `₹${ev.fee}`;
+    document.getElementById("qr-amount-label").textContent = `Pay ₹${ev.fee}`;
+
+    const upiUrl = `upi://pay?pa=${UPI_ID}&pn=${encodeURIComponent(PAYEE_NAME)}&am=${ev.fee}&cu=INR&tn=${encodeURIComponent(ev.name + " Registration")}`;
+    document.getElementById("qr-upi-text").textContent = `UPI ID: ${UPI_ID}`;
+
+    const qrDiv = document.getElementById("qrcode");
+    qrDiv.innerHTML = "";
+    new QRCode(qrDiv, {
+      text: upiUrl,
+      width: 180,
+      height: 180,
+      colorDark: "#000000",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+
+  function goBack(step) {
+    if (step === 1) {
+      document.getElementById("sec2").className = "section";
+      document.getElementById("sec1").className = "section show";
+      document.getElementById("step1-indicator").className = "step active";
+      document.getElementById("step2-indicator").className = "step active";
+      document.getElementById("conn1").className = "step-connector";
+    } else if (step === 2) {
+      document.getElementById("sec3").className = "section";
+      document.getElementById("sec2").className = "section show";
+      document.getElementById("step2-indicator").className = "step active";
+      document.getElementById("step3-indicator").className = "step";
+      document.getElementById("conn2").className = "step-connector";
+    }
+    window.scrollTo(0, 0);
+  }
+
+  async function submitForm() {
+    const txn = document.getElementById("txn").value.trim();
+    showErr("err-txn", !txn);
+    if (!txn) return;
+
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const year = document.getElementById("year").value;
+    const branch = document.getElementById("branch").value;
+
+    // Show loading state
+    const submitBtn = document.querySelector(".btn-submit");
+    submitBtn.textContent = "⏳ SAVING...";
+    submitBtn.disabled = true;
+
+    // Save to Google Sheet via SheetBest
+    const SHEET_API = "https://api.sheetbest.com/sheets/21f1d98b-9daa-4621-b8a9-3616679c715c";
+    const payload = {
+      "Timestamp": new Date().toLocaleString(),
+      "Full Name": name,
+      "Phone Number": phone,
+      "Email": email,
+      "Year & Branch": `${year} — ${branch}`,
+      "Event Name": selectedEvent.name,
+      "Category": category === "technical" ? "Technical" : "Non-Technical",
+      "Mode": mode,
+      "Amount Paid": `₹${selectedEvent.fee}`,
+      "Transaction ID": txn
+    };
+
+    try {
+      await fetch(SHEET_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.error("Sheet save error:", err);
+    }
+
+    // Show success screen
+    document.getElementById("success-summary").innerHTML = `
+      <div class="row"><span>Name</span><span>${name}</span></div>
+      <div class="row"><span>Phone</span><span>${phone}</span></div>
+      <div class="row"><span>Email</span><span>${email}</span></div>
+      <div class="row"><span>Year / Branch</span><span>${year} — ${branch}</span></div>
+      <div class="row"><span>Mode</span><span>${mode}</span></div>
+      <div class="row"><span>Event</span><span>${selectedEvent.name}</span></div>
+      <div class="row"><span>Category</span><span>${category === "technical" ? "Technical" : "Non-Technical"}</span></div>
+      <div class="row"><span>Amount Paid</span><span style="color:var(--green)">₹${selectedEvent.fee}</span></div>
+      <div class="row"><span>Transaction ID</span><span>${txn}</span></div>
+    `;
+
+    submitBtn.textContent = "✅ COMPLETE REGISTRATION";
+    submitBtn.disabled = false;
+
+    document.getElementById("sec3").className = "section";
+    document.getElementById("success").className = "success-screen show";
+    document.getElementById("step3-indicator").className = "step done";
+    window.scrollTo(0, 0);
+  }
+
+  function resetForm() {
+    document.getElementById("success").className = "success-screen";
+    document.getElementById("sec1").className = "section show";
+    document.getElementById("step1-indicator").className = "step active";
+    document.getElementById("step2-indicator").className = "step active";
+    document.getElementById("step3-indicator").className = "step";
+    document.getElementById("conn1").className = "step-connector";
+    document.getElementById("conn2").className = "step-connector";
+    document.getElementById("name").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("year").value = "";
+    document.getElementById("branch").value = "";
+    document.getElementById("txn").value = "";
+    category = "";
+    selectedEvent = null;
+    setMode("Offline");
+    document.getElementById("tech-events").style.display = "none";
+    document.getElementById("nontech-events").style.display = "none";
+    document.getElementById("cat-tech").className = "cat-btn";
+    document.getElementById("cat-non").className = "cat-btn";
+    document.querySelectorAll(".event-card").forEach(c => c.className = "event-card");
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
